@@ -1,0 +1,619 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050b18">
+<title>ZAHRA — A Universe of Her Own</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+:root{
+ --bg:#050b18;--blue:#78d9ff;--ice:#d5f4ff;
+ --purple:#aa9bff;--muted:#a2b6d0;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+ margin:0;background:var(--bg);color:#f4f8ff;
+ font-family:Vazirmatn,Tahoma,sans-serif;overflow-x:hidden
+}
+button,a{font:inherit}
+a{color:inherit;text-decoration:none}
+#world{
+ position:fixed;inset:0;width:100%;height:100%;
+ z-index:0;pointer-events:none
+}
+.vignette{
+ position:fixed;inset:0;z-index:1;pointer-events:none;
+ background:radial-gradient(ellipse at center,transparent 25%,#02050dbb 100%)
+}
+.topbar{
+ position:fixed;z-index:20;top:16px;left:4%;right:4%;
+ display:flex;justify-content:space-between;align-items:center;gap:12px;
+ padding:13px 19px;border:1px solid #b8e5ff20;
+ border-radius:22px;background:#081426ad;
+ backdrop-filter:blur(20px)
+}
+.logo{font-weight:900;letter-spacing:2px;color:#d6f4ff}
+.logo b{color:var(--blue)}
+.topbar nav{display:flex;gap:22px;font-size:12px;color:#bdcfe4}
+.topbar nav a:hover{color:var(--blue)}
+.pill{
+ border:1px solid #8bdcff55;border-radius:40px;padding:10px 16px;
+ color:white;background:#7dd5ff0e;cursor:pointer;transition:.3s
+}
+.pill:hover{background:#7dd5ff22;transform:translateY(-2px)}
+main{position:relative;z-index:2}
+.scene{
+ min-height:100svh;display:flex;align-items:center;
+ padding:130px 9%;position:relative;overflow:hidden
+}
+.content{width:100%;max-width:1100px;margin:auto}
+.hero-content{max-width:900px;text-align:center}
+.eyebrow{
+ color:#9cddff;letter-spacing:2px;font-size:11px;
+ display:inline-flex;gap:10px;align-items:center
+}
+.eyebrow:before,.eyebrow:after{
+ content:"";width:28px;height:1px;background:#81d6ff70
+}
+h1{
+ font-size:clamp(46px,9vw,110px);line-height:1.28;
+ margin:26px 0;font-weight:900;letter-spacing:-2px
+}
+.gradient{
+ background:linear-gradient(115deg,#fff,#9fe6ff 40%,#b7aaff 75%,#ffd0ef);
+ -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.lead{
+ color:#b1c5dc;font-size:clamp(14px,2vw,18px);
+ line-height:2.4;max-width:650px;margin:0 auto
+}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}
+.primary{
+ color:#06111f;background:linear-gradient(120deg,#9ee9ff,#b4a6ff);
+ border:0;font-weight:800;box-shadow:0 0 45px #70d4ff24
+}
+.hero-note{margin-top:55px;color:#7592b3;font-size:11px}
+.hero-note span{display:block;font-size:24px;margin-top:10px;animation:down 1.7s infinite}
+@keyframes down{50%{transform:translateY(7px)}}
+
+.chapter{
+ border-top:1px solid #b5ddff0b;
+ border-bottom:1px solid #b5ddff0b;
+ background:linear-gradient(90deg,#050b18a6,#08152b59,#050b18a6)
+}
+.chapter-grid{
+ display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center
+}
+.chapter-number{
+ font-size:12px;color:#84d9ff;letter-spacing:3px
+}
+h2{
+ font-size:clamp(33px,5vw,65px);line-height:1.5;
+ margin:18px 0;font-weight:800
+}
+.copy{font-size:15px;color:#afc2d9;line-height:2.6}
+.holo{
+ min-height:330px;display:grid;place-items:center;position:relative;
+ perspective:900px
+}
+.holo-ring{
+ width:min(65vw,290px);aspect-ratio:1;border-radius:50%;
+ border:1px solid #9bdeff60;
+ box-shadow:0 0 45px #65bfff16,inset 0 0 50px #68caff0b;
+ position:absolute;transform:rotateX(67deg);
+ animation:ring 12s linear infinite
+}
+.holo-ring:nth-child(2){
+ width:min(53vw,230px);border-color:#b7a2ff70;
+ transform:rotateX(67deg) rotateZ(55deg);animation-duration:17s
+}
+.holo-core{
+ width:105px;height:105px;border-radius:50%;
+ display:grid;place-items:center;font-size:44px;
+ background:radial-gradient(circle at 32% 25%,#c8f6ff,#56a6d9 35%,#293b80 70%,#0c132c);
+ box-shadow:0 0 65px #63baff59, inset -15px -20px 30px #081126;
+ animation:core 6s ease-in-out infinite
+}
+@keyframes ring{to{transform:rotateX(67deg) rotateZ(360deg)}}
+@keyframes core{50%{transform:translateY(-12px) scale(1.04)}}
+
+.cards{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:38px
+}
+.card{
+ padding:25px;border:1px solid #b1ddff21;border-radius:22px;
+ background:linear-gradient(145deg,#9edcff0b,#8b8dff06);
+ backdrop-filter:blur(12px);transition:.4s
+}
+.card:hover{transform:translateY(-7px);border-color:#8fdcff6b}
+.card .emoji{font-size:29px}
+.card h3{font-size:17px;margin:17px 0 8px}
+.card p{font-size:13px;line-height:2.3;color:#9fb5ce;margin:0}
+
+.center{text-align:center}
+.center .copy{max-width:650px;margin:0 auto}
+.orbit-stage{
+ height:250px;display:grid;place-items:center;position:relative
+}
+.orbit-stage .holo-core{width:85px;height:85px;font-size:33px}
+.orbit-stage .holo-ring{width:200px}
+.orbit-stage .holo-ring:nth-child(2){width:160px}
+.qualities{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:25px}
+.quality{
+ padding:10px 17px;border:1px solid #a1dfff2a;
+ background:#8bd7ff09;border-radius:30px;color:#c7eaff;font-size:12px
+}
+.message{
+ max-width:800px;margin:auto;padding:clamp(25px,6vw,65px);
+ border:1px solid #b4dfff29;border-radius:28px;
+ background:linear-gradient(145deg,#12233a9c,#0a1326ad);
+ box-shadow:0 25px 100px #0003;position:relative
+}
+.message h2{font-size:clamp(28px,5vw,47px)}
+.message p{color:#bed0e5;line-height:2.7;font-size:14px}
+.signature{font-size:21px;color:#a9e5ff;font-weight:800;margin-top:25px}
+footer{
+ padding:60px 20px 35px;text-align:center;
+ border-top:1px solid #b4dfff14;color:#819ab8;font-size:12px;line-height:2.5
+}
+footer .logo{font-size:20px}
+.progress{
+ position:fixed;top:0;right:0;height:2px;z-index:50;
+ width:0;background:linear-gradient(90deg,#a99aff,#8de7ff);
+ box-shadow:0 0 15px #8de7ff
+}
+#toast{
+ position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);
+ background:#12263c;border:1px solid #8ddcff60;border-radius:25px;
+ padding:13px 20px;font-size:13px;z-index:60;opacity:0;transition:.3s;
+ pointer-events:none;white-space:nowrap
+}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .9s,transform .9s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.heart{
+ position:fixed;z-index:45;pointer-events:none;
+ animation:fly 3s ease-out forwards
+}
+@keyframes fly{
+ from{transform:translateY(0) rotate(0) scale(.6);opacity:0}
+ 12%{opacity:1}
+ to{transform:translateY(-85vh) rotate(450deg) scale(1.3);opacity:0}
+}
+@media(max-width:760px){
+ .topbar{top:7px;left:3%;right:3%;padding:11px 12px}
+ .topbar nav{gap:10px;font-size:10px}
+ .logo{font-size:12px;letter-spacing:1px}
+ .topbar .pill{font-size:10px;padding:9px}
+ .scene{padding:110px 6%;min-height:90svh}
+ .chapter-grid{grid-template-columns:1fr;gap:10px}
+ .chapter-grid .holo{min-height:230px}
+ .cards{grid-template-columns:1fr;gap:12px}
+ .card{padding:22px}
+ h1{letter-spacing:-1px}
+ .hero-note{margin-top:35px}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<canvas id="world"></canvas>
+<div class="vignette"></div>
+<div class="progress" id="progress"></div>
+
+<header class="topbar">
+ <a href="#home" class="logo">ZAHRA <b>✦</b></a>
+ <nav>
+  <a href="#journey">سفر</a>
+  <a href="#magic">جادو</a>
+  <a href="#letter">نامه</a>
+ </nav>
+ <button class="pill" onclick="surprise()">سورپرایز ✧</button>
+</header>
+
+<main>
+<section class="scene" id="home">
+ <div class="content hero-content">
+  <div class="eyebrow">AN IMMERSIVE DIGITAL EXPERIENCE</div>
+  <h1>یه جهان کامل،<br><span class="gradient">برای یه آدم خاص.</span></h1>
+  <p class="lead">
+   زهرا، بعضی آدم‌ها فقط بخشی از دنیای ما نیستن؛
+   حضورشون باعث می‌شه خود دنیا قشنگ‌تر به نظر بیاد.
+   این سفر کوچیک رو برای تو ساختم. 💙
+  </p>
+  <div class="actions">
+   <a href="#journey" class="pill primary">شروع سفر فضایی ↗</a>
+   <button class="pill" onclick="shootStars()">جادو رو بیدار کن ✨</button>
+  </div>
+  <div class="hero-note">SCROLL TO ENTER THE UNIVERSE <span>⌄</span></div>
+ </div>
+</section>
+
+<section class="scene chapter" id="journey">
+ <div class="content chapter-grid">
+  <div class="reveal">
+   <div class="chapter-number">CHAPTER 01 — THE BLUE PLANET</div>
+   <h2>یه سیاره آبی،<br><span class="gradient">با یه حس خوب.</span></h2>
+   <p class="copy">
+    توی این جهان بزرگ، چیزایی که واقعاً ارزش دارن همیشه پر سر و صدا نیستن.
+    گاهی یه قلب مهربون، یه توجه کوچیک و یه آدم با معرفت،
+    از هزار تا اتفاق بزرگ قشنگ‌ترن.
+   </p>
+   <p class="copy">زهرا، مهربونی تو از همون چیزاییه که دیده می‌شه و توی خاطر می‌مونه.</p>
+  </div>
+  <div class="holo reveal">
+   <div class="holo-ring"></div><div class="holo-ring"></div>
+   <div class="holo-core">💎</div>
+  </div>
+ </div>
+</section>
+
+<section class="scene" id="magic">
+ <div class="content">
+  <div class="center reveal">
+   <div class="chapter-number">CHAPTER 02 — YOUR OWN KIND OF MAGIC</div>
+   <h2>چیزایی که تو رو <span class="gradient">خاص می‌کنن.</span></h2>
+   <p class="copy">
+    تعریف کردن از تو فقط گفتن چندتا کلمه قشنگ نیست؛
+    یعنی یادآوری چیزایی که شاید خودت کمتر بهشون توجه می‌کنی.
+   </p>
+  </div>
+  <div class="cards">
+   <article class="card reveal">
+    <div class="emoji">🫶🏻</div><h3>مهربونی واقعی</h3>
+    <p>از اون مهربونی‌هایی که توی رفتار معلوم می‌شن؛ مخصوصاً وقتی یکی به دلگرمی احتیاج داره.</p>
+   </article>
+   <article class="card reveal">
+    <div class="emoji">🌙</div><h3>حضور، حتی از دور</h3>
+    <p>فاصله همیشه به معنی دور بودن نیست. بعضی آدما از راه دور هم می‌تونن هوای آدم رو داشته باشن.</p>
+   </article>
+   <article class="card reveal">
+    <div class="emoji">🦋</div><h3>خودِ خودت بودن</h3>
+    <p>لازم نیست شبیه کسی باشی. تو به خاطر خودت، قلبت و شخصیت خودت ارزشمندی.</p>
+   </article>
+  </div>
+  <div class="qualities reveal">
+   <span class="quality">💙 دوست‌داشتنی</span>
+   <span class="quality">✦ با معرفت</span>
+   <span class="quality">🪐 منحصربه‌فرد</span>
+   <span class="quality">☁️ دلگرم‌کننده</span>
+   <span class="quality">💎 ارزشمند</span>
+  </div>
+ </div>
+</section>
+
+<section class="scene chapter">
+ <div class="content chapter-grid">
+  <div class="holo reveal">
+   <div class="holo-ring"></div><div class="holo-ring"></div>
+   <div class="holo-core">🩵</div>
+  </div>
+  <div class="reveal">
+   <div class="chapter-number">CHAPTER 03 — BEYOND DISTANCE</div>
+   <h2>بعضی فاصله‌ها،<br><span class="gradient">از ارزش آدما کم نمی‌کنن.</span></h2>
+   <p class="copy">
+    تو با مهربونی‌هات بهم نشون دادی که برای هوای کسی رو داشتن،
+    همیشه لازم نیست کنارش باشی.
+    همین که حواست به آدم باشه، همین که از روی محبت کاری انجام بدی،
+    می‌تونه خیلی بیشتر از چیزی که فکر می‌کنی ارزش داشته باشه.
+   </p>
+   <p class="copy">ممنونم که با وجود فاصله، هوامو داشتی. اینو فراموش نمی‌کنم. 💙</p>
+  </div>
+ </div>
+</section>
+
+<section class="scene" id="letter">
+ <div class="content">
+  <div class="center reveal" style="margin-bottom:38px">
+   <div class="chapter-number">FINAL CHAPTER — A LETTER FROM THE HEART</div>
+   <h2>برای تو، <span class="gradient">زهرا جان.</span></h2>
+  </div>
+  <article class="message reveal">
+   <div class="eyebrow">A LITTLE LETTER · MADE WITH LOVE</div>
+   <h2>یه حرف کوچیک دارم. 💌</h2>
+   <p>
+    زهرا جان، خواستم یه گوشه از این دنیای دیجیتال رو به تو اختصاص بدم،
+    چون می‌خوام بدونی چقدر برام ارزشمندی.
+   </p>
+   <p>
+    ممنونم که با مهربونی‌هات و اینکه با وجود دوری هوامو داشتی،
+    بهم حس خوبی دادی. شاید همیشه نتونم اون‌طور که باید ازت تشکر کنم،
+    ولی این محبتت رو می‌بینم و از ته دل قدرش رو می‌دونم.
+   </p>
+   <p>
+    من واقعاً دوستت دارم؛ نه به خاطر اینکه همیشه برای بقیه کاری انجام می‌دی،
+    بلکه به خاطر خودت و آدم قشنگی که هستی.
+    امیدوارم دنیا هم همون‌قدر که تو به بقیه محبت می‌کنی،
+    باهات مهربون باشه.
+   </p>
+   <p>
+    هیچ‌وقت یادت نره که خودت هم لایق توجه، آرامش، شادی و کلی اتفاق قشنگی.
+    لازم نیست همیشه قوی باشی یا حال همه رو خوب کنی.
+    خودت هم مهمی، زهرا. خیلی هم مهمی. 🩵
+   </p>
+   <div class="signature">با کلی عشق و قدردانی، برای تو ♡</div>
+   <div style="text-align:center;margin-top:30px">
+    <button class="pill primary" onclick="shootStars()">این جهان رو پر از قلب کن 💗</button>
+   </div>
+  </article>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="logo">ZAHRA <b>✦</b></div>
+ یه جهان کوچیک برای یه آدم دوست‌داشتنی.<br>
+ BUILT WITH KINDNESS, WONDER & LOVE.
+</footer>
+
+<div id="toast"></div>
+
+<script>
+function toast(msg){
+ const el=document.getElementById('toast');
+ el.textContent=msg;el.classList.add('show');
+ setTimeout(()=>el.classList.remove('show'),2300);
+}
+function surprise(){
+ document.getElementById('letter').scrollIntoView({behavior:'smooth'});
+ setTimeout(()=>shootStars(18),500);
+}
+function shootStars(n=28){
+ const icons=['💙','🩵','✨','💗','🦋','✦'];
+ for(let i=0;i<n;i++){
+  setTimeout(()=>{
+   const el=document.createElement('span');
+   el.className='heart';
+   el.textContent=icons[Math.floor(Math.random()*icons.length)];
+   el.style.left=Math.random()*100+'vw';
+   el.style.top=(60+Math.random()*30)+'vh';
+   el.style.fontSize=(14+Math.random()*22)+'px';
+   el.style.animationDuration=(2+Math.random()*2)+'s';
+   document.body.appendChild(el);
+   setTimeout(()=>el.remove(),4200);
+  },i*55);
+ }
+ toast('یه عالمه انرژی خوب برای زهرا 💙');
+}
+const revealObserver=new IntersectionObserver(entries=>{
+ entries.forEach(e=>{
+  if(e.isIntersecting){
+   e.target.classList.add('visible');
+   revealObserver.unobserve(e.target);
+  }
+ });
+},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+
+function updateProgress(){
+ const max=document.documentElement.scrollHeight-innerHeight;
+ document.getElementById('progress').style.width=
+  (max>0?scrollY/max*100:0)+'%';
+}
+window.addEventListener('scroll',updateProgress,{passive:true});
+</script>
+
+<!-- Three.js: real-time 3D environment -->
+<script type="importmap">
+{
+ "imports":{
+  "three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js"
+ }
+}
+</script>
+<script type="module">
+import * as THREE from 'three';
+
+const canvas=document.getElementById('world');
+const scene=new THREE.Scene();
+scene.background=new THREE.Color('#050b18');
+scene.fog=new THREE.FogExp2('#050b18',.012);
+
+const camera=new THREE.PerspectiveCamera(
+ 55,innerWidth/innerHeight,.1,1000
+);
+camera.position.set(0,0,22);
+
+const renderer=new THREE.WebGLRenderer({
+ canvas,antialias:innerWidth>600,alpha:false,
+ powerPreference:'high-performance'
+});
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
+renderer.setSize(innerWidth,innerHeight);
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=1.12;
+
+scene.add(new THREE.AmbientLight(0x9abfff,1.3));
+const keyLight=new THREE.PointLight(0x62c9ff,80,90);
+keyLight.position.set(-7,5,9);scene.add(keyLight);
+const violetLight=new THREE.PointLight(0x8470ff,65,90);
+violetLight.position.set(8,-4,-5);scene.add(violetLight);
+
+const world=new THREE.Group();
+scene.add(world);
+
+// Procedural star field
+const starCount=innerWidth<600?1800:3500;
+const starPositions=new Float32Array(starCount*3);
+const starColors=new Float32Array(starCount*3);
+for(let i=0;i<starCount;i++){
+ starPositions[i*3]=(Math.random()-.5)*130;
+ starPositions[i*3+1]=(Math.random()-.5)*100;
+ starPositions[i*3+2]=-Math.random()*100;
+ const c=new THREE.Color().setHSL(
+  .53+Math.random()*.12,.5,.65+Math.random()*.35
+ );
+ starColors[i*3]=c.r;
+ starColors[i*3+1]=c.g;
+ starColors[i*3+2]=c.b;
+}
+const starGeo=new THREE.BufferGeometry();
+starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3));
+starGeo.setAttribute('color',new THREE.BufferAttribute(starColors,3));
+const starMat=new THREE.PointsMaterial({
+ size:.12,vertexColors:true,transparent:true,opacity:.9,
+ sizeAttenuation:true,depthWrite:false
+});
+const stars=new THREE.Points(starGeo,starMat);
+scene.add(stars);
+
+// Distant luminous blue planet
+const planetGroup=new THREE.Group();
+world.add(planetGroup);
+const planetGeo=new THREE.SphereGeometry(3.25,64,64);
+const planetMat=new THREE.MeshStandardMaterial({
+ color:0x174f89,roughness:.72,metalness:.2,
+ emissive:0x082b5a,emissiveIntensity:.6
+});
+const planet=new THREE.Mesh(planetGeo,planetMat);
+planetGroup.add(planet);
+
+const cloudGeo=new THREE.SphereGeometry(3.3,48,48);
+const cloudMat=new THREE.MeshBasicMaterial({
+ color:0x3bbfff,transparent:true,opacity:.07,
+ side:THREE.BackSide,blending:THREE.AdditiveBlending,
+ depthWrite:false
+});
+planetGroup.add(new THREE.Mesh(cloudGeo,cloudMat));
+
+const atmosphere=new THREE.Mesh(
+ new THREE.SphereGeometry(3.48,48,48),
+ new THREE.MeshBasicMaterial({
+  color:0x52bfff,transparent:true,opacity:.11,
+  side:THREE.BackSide,blending:THREE.AdditiveBlending,
+  depthWrite:false
+ })
+);
+planetGroup.add(atmosphere);
+
+// Planet rings
+function makeRing(radius,tube,color,opacity){
+ const geo=new THREE.TorusGeometry(radius,tube,12,160);
+ const mat=new THREE.MeshBasicMaterial({
+  color,transparent:true,opacity,blending:THREE.AdditiveBlending,
+  depthWrite:false
+ });
+ return new THREE.Mesh(geo,mat);
+}
+const ring1=makeRing(4.5,.018,0x6edaff,.7);
+ring1.rotation.x=1.12;ring1.rotation.y=.15;
+planetGroup.add(ring1);
+const ring2=makeRing(5.05,.009,0xa99aff,.6);
+ring2.rotation.x=1.2;ring2.rotation.y=-.15;
+planetGroup.add(ring2);
+
+// Glowing floating motes around the planet
+const moteCount=650;
+const motePos=new Float32Array(moteCount*3);
+const moteSeed=[];
+for(let i=0;i<moteCount;i++){
+ const r=4.1+Math.random()*4.2;
+ const a=Math.random()*Math.PI*2;
+ const b=(Math.random()-.5)*Math.PI;
+ motePos[i*3]=Math.cos(a)*Math.cos(b)*r;
+ motePos[i*3+1]=Math.sin(b)*r*.65;
+ motePos[i*3+2]=Math.sin(a)*Math.cos(b)*r;
+ moteSeed.push(Math.random()*6.28);
+}
+const moteGeo=new THREE.BufferGeometry();
+moteGeo.setAttribute('position',new THREE.BufferAttribute(motePos,3));
+const motes=new THREE.Points(moteGeo,new THREE.PointsMaterial({
+ color:0x8bdcff,size:.045,transparent:true,opacity:.8,
+ blending:THREE.AdditiveBlending,depthWrite:false
+}));
+planetGroup.add(motes);
+
+// Small orbiting moon
+const moon=new THREE.Mesh(
+ new THREE.SphereGeometry(.36,32,32),
+ new THREE.MeshStandardMaterial({
+  color:0xb6aaff,roughness:.45,metalness:.2,
+  emissive:0x433d91,emissiveIntensity:.5
+ })
+);
+world.add(moon);
+
+// Mouse / touch parallax
+let pointerX=0,pointerY=0;
+function point(x,y){
+ pointerX=(x/innerWidth-.5)*2;
+ pointerY=(y/innerHeight-.5)*2;
+}
+addEventListener('pointermove',e=>point(e.clientX,e.clientY),{passive:true});
+
+// Scroll changes the virtual camera's destination
+let scrollTarget=0;
+function readScroll(){
+ const max=document.documentElement.scrollHeight-innerHeight;
+ scrollTarget=max>0?scrollY/max:0;
+}
+addEventListener('scroll',readScroll,{passive:true});
+readScroll();
+
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let last=0;
+function animate(now){
+ requestAnimationFrame(animate);
+ const t=now*.001;
+ const s=scrollTarget;
+
+ // Cinematic camera flight through a virtual universe
+ const targetX=Math.sin(s*Math.PI*2)*3.3+pointerX*1.0;
+ const targetY=Math.cos(s*Math.PI*2)*1.7-pointerY*.65;
+ const targetZ=22-s*8.2;
+ camera.position.x+=(targetX-camera.position.x)*.025;
+ camera.position.y+=(targetY-camera.position.y)*.025;
+ camera.position.z+=(targetZ-camera.position.z)*.025;
+
+ camera.lookAt(
+  Math.sin(s*Math.PI*2)*.9,
+  Math.sin(s*Math.PI*3)*.45,
+  -s*3.5
+ );
+
+ planetGroup.position.set(
+  Math.sin(s*5.7)*5.1,
+  Math.cos(s*4.3)*2.1,
+  -8-s*25
+ );
+ const scale=1+s*.18;
+ planetGroup.scale.setScalar(scale);
+ planet.rotation.y=t*(reduced?0:.045);
+ planet.rotation.x=.12+Math.sin(t*.2)*.035;
+ ring1.rotation.z=t*(reduced?0:.035);
+ ring2.rotation.z=-t*(reduced?0:.025);
+ motes.rotation.y=t*(reduced?0:.018);
+
+ moon.position.set(
+  planetGroup.position.x+Math.cos(t*.3)*6.5,
+  planetGroup.position.y+Math.sin(t*.3)*3,
+  planetGroup.position.z-2
+ );
+
+ stars.rotation.y=t*(reduced?0:.002)+pointerX*.012;
+ stars.rotation.x=pointerY*.008;
+
+ // Render at a modest rate on low-end phones
+ if(!reduced||now-last>65){
+  renderer.render(scene,camera);
+  last=now;
+ }
+}
+requestAnimationFrame(animate);
+
+addEventListener('resize',()=>{
+ camera.aspect=innerWidth/innerHeight;
+ camera.updateProjectionMatrix();
+ renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));
+ renderer.setSize(innerWidth,innerHeight);
+});
+</script>
+</body>
+</html>
